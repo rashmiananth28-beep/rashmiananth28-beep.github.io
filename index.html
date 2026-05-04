@@ -1,10 +1,560 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name — Network & AI Automation Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --neon:#00FFB2;
+  --blue:#00C8FF;
+  --dark:#080C10;
+  --dark2:#0D1318;
+  --surface:#141C24;
+  --surface2:#1A2430;
+  --txt:#E0F0FF;
+  --txt2:#7AA4BF;
+  --accent:#FF6B35;
+  --purple:#C880FF;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--dark);
+  color:var(--txt);
+  font-family:'Syne',sans-serif;
+  line-height:1.6;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:rgba(0,255,178,0.3);border-radius:2px;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 48px;
+  background:rgba(8,12,16,0.9);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,255,178,0.08);
+}
+.logo{font-size:13px;font-weight:700;letter-spacing:3px;color:var(--neon);text-transform:uppercase;}
+.nav-links{display:flex;gap:32px;}
+.nav-links a{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--txt2);text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--neon);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:100px 48px 60px;
+  position:relative;overflow:hidden;
+}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1100px;margin:0 auto;width:100%;}
+.hero-label{
+  font-family:'Share Tech Mono',monospace;
+  font-size:11px;color:var(--neon);letter-spacing:3px;
+  margin-bottom:16px;display:block;
+}
+.hero h1{font-size:56px;font-weight:800;line-height:1.05;margin-bottom:8px;}
+.hero h1 .name{color:var(--txt);}
+.hero h1 .role{color:var(--neon);font-size:28px;display:block;margin-top:8px;font-weight:700;}
+.hero-desc{font-size:14px;color:var(--txt2);line-height:1.8;margin-bottom:32px;max-width:440px;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{
+  padding:11px 24px;border-radius:6px;
+  font-family:'Syne',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;
+}
+.btn-primary{background:var(--neon);color:var(--dark);border:none;}
+.btn-primary:hover{background:#00e8a0;transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--neon);border:1px solid var(--neon);}
+.btn-outline:hover{background:rgba(0,255,178,0.08);}
+
+/* Terminal card */
+.terminal-card{
+  background:var(--surface);
+  border:1px solid rgba(0,255,178,0.15);
+  border-radius:12px;
+  overflow:hidden;
+}
+.terminal-bar{
+  background:var(--dark2);
+  padding:10px 16px;
+  display:flex;align-items:center;gap:8px;
+  border-bottom:1px solid rgba(0,255,178,0.08);
+}
+.dot{width:10px;height:10px;border-radius:50%;}
+.dot.red{background:#FF5F57;}
+.dot.yellow{background:#FEBC2E;}
+.dot.green{background:#28C840;}
+.terminal-title{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--txt2);margin-left:8px;}
+.terminal-body{
+  padding:20px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:12px;line-height:1.9;
+}
+.t-prompt{color:var(--neon);}
+.t-cmd{color:var(--txt);}
+.t-out{color:var(--txt2);}
+.t-ok{color:var(--neon);}
+.t-blue{color:var(--blue);}
+.t-purple{color:var(--purple);}
+.t-warn{color:#FFB830;}
+.cursor{
+  display:inline-block;width:8px;height:13px;
+  background:var(--neon);animation:blink 1s infinite;vertical-align:middle;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── SECTION BASE ── */
+section{padding:80px 48px;max-width:1100px;margin:0 auto;}
+.full-width{max-width:none;padding-left:0;padding-right:0;}
+.section-inner{max-width:1100px;margin:0 auto;padding:0 48px;}
+.sec-tag{
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px;color:var(--neon);letter-spacing:4px;
+  text-transform:uppercase;margin-bottom:10px;
+}
+.sec-title{font-size:32px;font-weight:800;margin-bottom:8px;}
+.sec-sub{font-size:13px;color:var(--txt2);max-width:500px;margin-bottom:40px;line-height:1.7;}
+
+/* ── SKILLS ── */
+.skills-bg{background:var(--dark2);border-top:1px solid rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.04);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+.skill-group{
+  background:var(--surface);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:10px;padding:22px;
+}
+.skill-group-title{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--neon);margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.skill-group-title span{font-size:16px;}
+.skill-pill{
+  display:inline-block;
+  margin:3px;padding:4px 10px;
+  background:rgba(0,255,178,0.06);
+  border:1px solid rgba(0,255,178,0.15);
+  border-radius:4px;
+  font-size:11px;color:var(--txt2);
+  font-family:'Share Tech Mono',monospace;
+}
+
+/* ── PROJECT ── */
+.project-card{
+  background:var(--surface);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:12px;
+  padding:32px;
+  margin-bottom:20px;
+  position:relative;
+  overflow:hidden;
+  transition:border-color .2s,transform .2s;
+}
+.project-card:hover{border-color:rgba(0,255,178,0.3);transform:translateY(-3px);}
+.project-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--card-accent,var(--neon));
+}
+.project-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;flex-wrap:wrap;gap:10px;}
+.project-title{font-size:18px;font-weight:700;}
+.project-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.ptag{
+  padding:3px 10px;border-radius:4px;
+  font-size:10px;letter-spacing:1px;text-transform:uppercase;
+  font-family:'Share Tech Mono',monospace;
+}
+.ptag.study{background:rgba(0,255,178,0.08);color:var(--neon);border:1px solid rgba(0,255,178,0.2);}
+.ptag.net{background:rgba(0,200,255,0.08);color:var(--blue);border:1px solid rgba(0,200,255,0.2);}
+.ptag.ai{background:rgba(200,128,255,0.08);color:var(--purple);border:1px solid rgba(200,128,255,0.2);}
+.ptag.cloud{background:rgba(255,107,53,0.08);color:var(--accent);border:1px solid rgba(255,107,53,0.2);}
+.project-desc{font-size:13px;color:var(--txt2);line-height:1.8;margin-bottom:16px;}
+.project-points{list-style:none;padding:0;}
+.project-points li{
+  font-size:12px;color:var(--txt2);
+  padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);
+  display:flex;align-items:flex-start;gap:10px;
+}
+.project-points li::before{content:'▸';color:var(--neon);font-size:10px;margin-top:2px;flex-shrink:0;}
+
+/* ── EXPERIENCE ── */
+.exp-bg{background:var(--dark2);border-top:1px solid rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.04);}
+.timeline{position:relative;padding-left:24px;}
+.timeline::before{
+  content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;
+  background:rgba(0,255,178,0.2);
+}
+.exp-item{position:relative;margin-bottom:36px;padding-left:20px;}
+.exp-item::before{
+  content:'';position:absolute;left:-28px;top:6px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--neon);box-shadow:0 0 8px var(--neon);
+}
+.exp-period{
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px;color:var(--neon);letter-spacing:2px;margin-bottom:4px;
+}
+.exp-role{font-size:16px;font-weight:700;margin-bottom:2px;}
+.exp-company{font-size:12px;color:var(--txt2);margin-bottom:10px;}
+.exp-points{list-style:none;}
+.exp-points li{
+  font-size:12px;color:var(--txt2);
+  padding:4px 0;display:flex;gap:10px;align-items:flex-start;
+}
+.exp-points li::before{content:'→';color:var(--blue);flex-shrink:0;}
+
+/* ── CERTS ── */
+.certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;}
+.cert-card{
+  background:var(--surface);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:10px;
+  padding:20px;
+  display:flex;gap:14px;align-items:flex-start;
+}
+.cert-icon{font-size:24px;flex-shrink:0;}
+.cert-name{font-size:13px;font-weight:700;margin-bottom:3px;}
+.cert-issuer{font-size:11px;color:var(--txt2);}
+.cert-status{
+  display:inline-block;margin-top:6px;
+  font-size:10px;padding:2px 8px;border-radius:3px;
+  font-family:'Share Tech Mono',monospace;
+}
+.cert-status.done{background:rgba(0,255,178,0.08);color:var(--neon);}
+.cert-status.progress{background:rgba(255,184,48,0.08);color:#FFB830;}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+.contact-links{display:flex;flex-direction:column;gap:12px;}
+.contact-link{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 18px;
+  background:var(--surface);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:8px;
+  text-decoration:none;color:var(--txt2);
+  font-size:13px;transition:all .2s;
+}
+.contact-link:hover{border-color:rgba(0,255,178,0.3);color:var(--neon);}
+.contact-link span{font-size:18px;}
+.contact-note{
+  font-size:13px;color:var(--txt2);line-height:1.8;
+  background:var(--surface);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:10px;padding:24px;
+}
+.contact-note strong{color:var(--txt);font-weight:700;}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid rgba(255,255,255,0.05);
+  padding:24px 48px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:10px;
+}
+footer p{font-size:11px;color:var(--txt2);font-family:'Share Tech Mono',monospace;letter-spacing:1px;}
+
+/* ── FADE IN ANIMATION ── */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.fade-in.visible{opacity:1;transform:none;}
+
+@media(max-width:768px){
+  .hero-grid,.contact-grid{grid-template-columns:1fr;}
+  .hero h1{font-size:38px;}
+  nav{padding:14px 20px;}
+  .nav-links{gap:16px;}
+  section{padding:60px 20px;}
+  .section-inner{padding:0 20px;}
+  footer{padding:20px;}
+}
+</style>
+</head>
 <body>
 
-<h1>My First Heading</h1>
+<!-- NAV -->
+<nav>
+  <div class="logo">YN.dev</div>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
-<p>My first paragraph.</p>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid">
+    <div class="fade-in">
+      <span class="hero-label">// Working Professional · Network & AI</span>
+      <h1>
+        <span class="name">Your Name</span>
+        <span class="role">Network &amp; AI<br>Automation Engineer</span>
+      </h1>
+      <p class="hero-desc">
+        I design and automate network infrastructure — from physical switches and routers to cloud-connected environments — and study how AI is transforming the way networks are managed, monitored, and healed.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
 
+    <!-- Terminal card -->
+    <div class="terminal-card fade-in" style="transition-delay:.2s">
+      <div class="terminal-bar">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+        <span class="terminal-title">yourname@netops:~</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">$ </span><span class="t-cmd">whoami</span></div>
+        <div class="t-ok">→ Network Engineer + AI Automation Learner</div>
+        <br>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">skills --list</span></div>
+        <div class="t-blue">→ Routing, Switching, SD-WAN, Cloud Networking</div>
+        <div class="t-purple">→ Python · Ansible · NETCONF · AI/ML for NetOps</div>
+        <br>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">status --check</span></div>
+        <div class="t-ok">✔ Available for collaboration</div>
+        <div class="t-ok">✔ Actively building AI automation projects</div>
+        <br>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">run portfolio<span class="cursor"></span></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="skills-bg full-width" id="skills">
+  <div class="section-inner" style="padding-top:80px;padding-bottom:80px;">
+    <div class="sec-tag">Technical Skills</div>
+    <div class="sec-title">What I work with</div>
+    <p class="sec-sub">Spanning physical network infrastructure, cloud platforms, and AI-driven automation tools.</p>
+    <div class="skills-grid">
+      <div class="skill-group fade-in">
+        <div class="skill-group-title"><span>🔀</span> Networking</div>
+        <span class="skill-pill">OSPF</span>
+        <span class="skill-pill">BGP</span>
+        <span class="skill-pill">VLAN</span>
+        <span class="skill-pill">STP</span>
+        <span class="skill-pill">802.1Q</span>
+        <span class="skill-pill">QoS</span>
+        <span class="skill-pill">SD-WAN</span>
+        <span class="skill-pill">MPLS</span>
+      </div>
+      <div class="skill-group fade-in" style="transition-delay:.1s">
+        <div class="skill-group-title"><span>☁️</span> Cloud & Security</div>
+        <span class="skill-pill">AWS VPC</span>
+        <span class="skill-pill">Azure VNet</span>
+        <span class="skill-pill">Zero Trust</span>
+        <span class="skill-pill">Firewall</span>
+        <span class="skill-pill">VPN/IPSec</span>
+        <span class="skill-pill">NAT</span>
+      </div>
+      <div class="skill-group fade-in" style="transition-delay:.2s">
+        <div class="skill-group-title"><span>⚙️</span> Automation</div>
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">Ansible</span>
+        <span class="skill-pill">NETCONF</span>
+        <span class="skill-pill">RESTCONF</span>
+        <span class="skill-pill">Terraform</span>
+        <span class="skill-pill">Bash</span>
+      </div>
+      <div class="skill-group fade-in" style="transition-delay:.3s">
+        <div class="skill-group-title"><span>🤖</span> AI / AIOps</div>
+        <span class="skill-pill">Anomaly Detection</span>
+        <span class="skill-pill">Time-Series ML</span>
+        <span class="skill-pill">Intent-Based Net</span>
+        <span class="skill-pill">LLM APIs</span>
+        <span class="skill-pill">AIOps Concepts</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-tag">Projects</div>
+  <div class="sec-title">What I've built & studied</div>
+  <p class="sec-sub">Self-directed projects that combine networking fundamentals with AI and automation — built to learn, documented to share.</p>
+
+  <div class="project-card fade-in" style="--card-accent:var(--neon)">
+    <div class="project-header">
+      <div class="project-title">AI-Driven Network Automation Platform</div>
+      <div class="project-tags">
+        <span class="ptag study">Study Project</span>
+        <span class="ptag ai">AI / ML</span>
+        <span class="ptag net">Networking</span>
+      </div>
+    </div>
+    <p class="project-desc">Designed and prototyped a conceptual AIOps platform that covers the full observe → detect → act automation loop. Explored how LLMs can translate plain-English network intents into NETCONF/RESTCONF configuration commands.</p>
+    <ul class="project-points">
+      <li>Studied telemetry ingestion pipelines using gNMI and streaming SNMP</li>
+      <li>Prototyped anomaly detection on simulated network time-series data using Python</li>
+      <li>Explored intent-based networking using LLM APIs to auto-generate switch configs</li>
+      <li>Implemented zero-touch provisioning scripts using Ansible + NETCONF</li>
+      <li>Built a web dashboard (HTML/JS) to visualise live network topology</li>
+    </ul>
+  </div>
+
+  <div class="project-card fade-in" style="--card-accent:var(--blue)">
+    <div class="project-header">
+      <div class="project-title">Multi-Layer Network Design & Simulation</div>
+      <div class="project-tags">
+        <span class="ptag net">Networking</span>
+        <span class="ptag study">Study Project</span>
+      </div>
+    </div>
+    <p class="project-desc">Designed a three-tier enterprise network (core / distribution / access) in GNS3 / Packet Tracer, covering L2 switching through L3 routing and WAN connectivity.</p>
+    <ul class="project-points">
+      <li>Configured OSPF multi-area routing across 12 simulated routers</li>
+      <li>Implemented VLAN segmentation with inter-VLAN routing via Layer 3 switches</li>
+      <li>Set up BGP peering between simulated autonomous systems</li>
+      <li>Applied QoS policies to prioritise voice and video traffic</li>
+    </ul>
+  </div>
+
+  <div class="project-card fade-in" style="--card-accent:var(--purple)">
+    <div class="project-header">
+      <div class="project-title">Cloud-Hybrid Network Architecture Study</div>
+      <div class="project-tags">
+        <span class="ptag cloud">Cloud</span>
+        <span class="ptag net">Networking</span>
+        <span class="ptag study">Study Project</span>
+      </div>
+    </div>
+    <p class="project-desc">Explored hybrid cloud connectivity patterns — connecting on-premises infrastructure to AWS and Azure using VPN gateways, Direct Connect concepts, and unified security policy management.</p>
+    <ul class="project-points">
+      <li>Studied AWS VPC design: subnets, route tables, security groups, Transit Gateway</li>
+      <li>Configured site-to-site IPSec VPN between on-prem and cloud environments</li>
+      <li>Explored Zero Trust architecture principles for microsegmentation</li>
+      <li>Documented SD-WAN path selection logic across MPLS / broadband / 4G links</li>
+    </ul>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<div class="exp-bg full-width" id="experience">
+  <div class="section-inner" style="padding-top:80px;padding-bottom:80px;">
+    <div class="sec-tag">Experience</div>
+    <div class="sec-title">Professional background</div>
+    <p class="sec-sub">Update this section with your real work history. Placeholder shown below.</p>
+    <div class="timeline">
+      <div class="exp-item fade-in">
+        <div class="exp-period">2022 — PRESENT</div>
+        <div class="exp-role">Network Engineer / IT Professional</div>
+        <div class="exp-company">Your Company Name · Full-time</div>
+        <ul class="exp-points">
+          <li>Managing and maintaining enterprise LAN/WAN infrastructure across multiple sites</li>
+          <li>Implementing network automation scripts using Python and Ansible to reduce manual config tasks</li>
+          <li>Studying AI/ML applications in network operations (AIOps) in parallel with day-to-day role</li>
+          <li>Handling network monitoring, troubleshooting, and capacity planning</li>
+        </ul>
+      </div>
+      <div class="exp-item fade-in" style="transition-delay:.15s">
+        <div class="exp-period">2019 — 2022</div>
+        <div class="exp-role">Previous Role</div>
+        <div class="exp-company">Previous Company · Full-time</div>
+        <ul class="exp-points">
+          <li>Add your previous role details here</li>
+          <li>Key responsibilities and achievements</li>
+          <li>Technologies and tools you worked with</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CERTIFICATIONS -->
+<section>
+  <div class="sec-tag">Certifications & Learning</div>
+  <div class="sec-title">Credentials</div>
+  <p class="sec-sub">Add your real certifications here — placeholder examples shown.</p>
+  <div class="certs-grid">
+    <div class="cert-card fade-in">
+      <div class="cert-icon">🏅</div>
+      <div>
+        <div class="cert-name">CCNA</div>
+        <div class="cert-issuer">Cisco — Networking</div>
+        <span class="cert-status done">Completed</span>
+      </div>
+    </div>
+    <div class="cert-card fade-in" style="transition-delay:.1s">
+      <div class="cert-icon">🏅</div>
+      <div>
+        <div class="cert-name">AWS Solutions Architect</div>
+        <div class="cert-issuer">Amazon Web Services</div>
+        <span class="cert-status progress">In Progress</span>
+      </div>
+    </div>
+    <div class="cert-card fade-in" style="transition-delay:.2s">
+      <div class="cert-icon">🏅</div>
+      <div>
+        <div class="cert-name">Python for Network Engineers</div>
+        <div class="cert-issuer">Udemy / Self-Study</div>
+        <span class="cert-status done">Completed</span>
+      </div>
+    </div>
+    <div class="cert-card fade-in" style="transition-delay:.3s">
+      <div class="cert-icon">🏅</div>
+      <div>
+        <div class="cert-name">AI for Network Operations</div>
+        <div class="cert-issuer">Self-Directed Study</div>
+        <span class="cert-status done">Completed</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="skills-bg full-width" id="contact">
+  <div class="section-inner" style="padding-top:80px;padding-bottom:80px;">
+    <div class="sec-tag">Contact</div>
+    <div class="sec-title">Let's connect</div>
+    <p class="sec-sub">Open to networking (pun intended), collaboration, or just a conversation about AI and infrastructure.</p>
+    <div class="contact-grid">
+      <div class="contact-links">
+        <a href="mailto:you@email.com" class="contact-link"><span>✉️</span> you@email.com</a>
+        <a href="https://linkedin.com/in/yourprofile" class="contact-link" target="_blank"><span>💼</span> linkedin.com/in/yourprofile</a>
+        <a href="https://github.com/yourusername" class="contact-link" target="_blank"><span>🐙</span> github.com/yourusername</a>
+      </div>
+      <div class="contact-note">
+        <strong>Currently:</strong> Working as a network professional and actively deepening my expertise in AI-driven automation, cloud networking, and intent-based infrastructure.<br><br>
+        I built the projects on this site as part of my self-directed study — they reflect what I'm learning and where I'm heading. Always happy to chat about the intersection of networking and AI.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Your Name — Built with HTML/CSS/JS</p>
+  <p>Network & AI Automation · Working Professional</p>
+</footer>
+
+<script>
+// Fade-in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Trigger hero items on load
+setTimeout(() => {
+  document.querySelectorAll('.hero .fade-in').forEach(el => el.classList.add('visible'));
+}, 100);
+</script>
 </body>
 </html>
